@@ -29,6 +29,7 @@ const features = [
     title: "Location Insights",
     description:
       "Get honest trade-off analysis for different areas — commute time, budget, lifestyle needs all considered.",
+    link: "/location-compare",
   },
   {
     icon: MessageCircle,
@@ -124,6 +125,7 @@ export default function Index() {
                 icon={feature.icon}
                 title={feature.title}
                 description={feature.description}
+                link={feature.link}
                 className="animate-slide-up"
                 style={{ animationDelay: `${i * 100}ms` } as React.CSSProperties}
               />
