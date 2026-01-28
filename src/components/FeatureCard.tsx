@@ -1,19 +1,22 @@
 import { LucideIcon } from "lucide-react";
+import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 interface FeatureCardProps {
   icon: LucideIcon;
   title: string;
   description: string;
+  link?: string;
   className?: string;
   style?: React.CSSProperties;
 }
 
-export function FeatureCard({ icon: Icon, title, description, className, style }: FeatureCardProps) {
-  return (
+export function FeatureCard({ icon: Icon, title, description, link, className, style }: FeatureCardProps) {
+  const content = (
     <div
       className={cn(
         "group p-6 rounded-xl bg-card border border-border shadow-card hover:shadow-elevated transition-all duration-300 hover:-translate-y-1",
+        link && "cursor-pointer",
         className
       )}
       style={style}
@@ -25,4 +28,10 @@ export function FeatureCard({ icon: Icon, title, description, className, style }
       <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
     </div>
   );
+
+  if (link) {
+    return <Link to={link}>{content}</Link>;
+  }
+
+  return content;
 }
