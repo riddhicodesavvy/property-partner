@@ -86,7 +86,20 @@ serve(async (req) => {
       );
     }
 
-    const data = await response.json();
+    const responseText = await response.text();
+    console.log("Raw AI gateway response:", responseText.substring(0, 500));
+    
+    let data;
+    try {
+      data = JSON.parse(responseText);
+    } catch (parseErr) {
+      console.error("Failed to parse AI gateway response as JSON:", parseErr);
+      console.error("Response text:", responseText.substring(0, 1000));
+      return new Response(
+        JSON.stringify({ error: "Failed to parse AI gateway response" }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
     const content = data.choices?.[0]?.message?.content || "";
 
     console.log("AI Response:", content);
